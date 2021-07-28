@@ -43,6 +43,49 @@ namespace myContact
         {
             frmAddorEdite frm = new frmAddorEdite();
             frm.ShowDialog();
+            if(frm.DialogResult == DialogResult.OK)
+            {
+                bindGrid();
+            }
+        }
+
+        private void btnDelet_Click(object sender, EventArgs e)
+        {
+            if(dgContacts.CurrentRow != null)
+            {
+                string name = dgContacts.CurrentRow.Cells[0].Value.ToString() + dgContacts.CurrentRow.Cells[2].Value.ToString();
+               if(MessageBox.Show($"از حذف {name} مطمِن هستید؟" ,"",MessageBoxButtons.YesNo,MessageBoxIcon.Warning)==DialogResult.Yes)
+                {
+                    int indecs = int.Parse(dgContacts.CurrentRow.Cells[1].Value.ToString());
+                    repository.Delet(indecs);
+                    bindGrid();
+                }
+            }
+            else{
+                MessageBox.Show("شخصی انتخاب نشده است!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if(dgContacts.CurrentRow!= null)
+            {
+                int contactId = int.Parse(dgContacts.CurrentRow.Cells[1].Value.ToString());
+                frmAddorEdite frm = new frmAddorEdite();
+                frm.contactIDForNemeForm = contactId;
+               if( frm.ShowDialog()== DialogResult.OK)
+                {
+                    bindGrid();
+                }
+                
+                
+                
+
+            }
+            else
+            {
+                MessageBox.Show(" شخصی انتخاب نشده!", " هشدار", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

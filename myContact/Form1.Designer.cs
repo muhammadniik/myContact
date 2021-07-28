@@ -31,6 +31,8 @@ namespace myContact
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnNewContact = new System.Windows.Forms.ToolStripButton();
+            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgContacts = new System.Windows.Forms.DataGridView();
@@ -40,8 +42,8 @@ namespace myContact
             this.mobil = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.age = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnNewContact = new System.Windows.Forms.ToolStripButton();
-            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
+            this.btnDelet = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgContacts)).BeginInit();
@@ -55,25 +57,51 @@ namespace myContact
             this.btnRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(997, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1039, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // btnNewContact
+            // 
+            this.btnNewContact.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnNewContact.Image = ((System.Drawing.Image)(resources.GetObject("btnNewContact.Image")));
+            this.btnNewContact.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNewContact.Name = "btnNewContact";
+            this.btnNewContact.Size = new System.Drawing.Size(136, 24);
+            this.btnNewContact.Text = "افزودن شخص جدید";
+            this.btnNewContact.Click += new System.EventHandler(this.btnNewContact_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
+            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(72, 36);
+            this.btnRefresh.Text = "تازه سازی";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(12, 47);
+            this.groupBox1.Location = new System.Drawing.Point(19, 78);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(956, 108);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(1005, 178);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "جستجو";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnEdit);
+            this.groupBox2.Controls.Add(this.btnDelet);
             this.groupBox2.Controls.Add(this.dgContacts);
-            this.groupBox2.Location = new System.Drawing.Point(12, 178);
+            this.groupBox2.Location = new System.Drawing.Point(16, 200);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(958, 479);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(1000, 415);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "لیست";
@@ -91,12 +119,13 @@ namespace myContact
             this.mobil,
             this.age,
             this.email});
-            this.dgContacts.Location = new System.Drawing.Point(3, 21);
+            this.dgContacts.Location = new System.Drawing.Point(5, 35);
+            this.dgContacts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgContacts.Name = "dgContacts";
             this.dgContacts.ReadOnly = true;
             this.dgContacts.RowHeadersWidth = 51;
             this.dgContacts.RowTemplate.Height = 24;
-            this.dgContacts.Size = new System.Drawing.Size(949, 318);
+            this.dgContacts.Size = new System.Drawing.Size(1000, 291);
             this.dgContacts.TabIndex = 0;
             // 
             // name
@@ -148,36 +177,39 @@ namespace myContact
             this.email.Name = "email";
             this.email.ReadOnly = true;
             // 
-            // btnNewContact
+            // btnDelet
             // 
-            this.btnNewContact.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnNewContact.Image = ((System.Drawing.Image)(resources.GetObject("btnNewContact.Image")));
-            this.btnNewContact.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnNewContact.Name = "btnNewContact";
-            this.btnNewContact.Size = new System.Drawing.Size(136, 24);
-            this.btnNewContact.Text = "افزودن شخص جدید";
-            this.btnNewContact.Click += new System.EventHandler(this.btnNewContact_Click);
+            this.btnDelet.Location = new System.Drawing.Point(696, 334);
+            this.btnDelet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDelet.Name = "btnDelet";
+            this.btnDelet.Size = new System.Drawing.Size(135, 69);
+            this.btnDelet.TabIndex = 1;
+            this.btnDelet.Text = "حذف";
+            this.btnDelet.UseVisualStyleBackColor = true;
+            this.btnDelet.Click += new System.EventHandler(this.btnDelet_Click);
             // 
-            // btnRefresh
+            // btnEdit
             // 
-            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(72, 24);
-            this.btnRefresh.Text = "تازه سازی";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.btnEdit.Location = new System.Drawing.Point(857, 334);
+            this.btnEdit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(135, 69);
+            this.btnEdit.TabIndex = 1;
+            this.btnEdit.Text = "ویرایش";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(997, 524);
+            this.ClientSize = new System.Drawing.Size(1039, 628);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
-            this.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -206,6 +238,8 @@ namespace myContact
         private System.Windows.Forms.DataGridViewTextBoxColumn email;
         private System.Windows.Forms.ToolStripButton btnNewContact;
         private System.Windows.Forms.ToolStripButton btnRefresh;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnDelet;
     }
 }
 

@@ -16,6 +16,7 @@ namespace myContact
     
     public partial class frmAddorEdite : Form
     {
+        public int contactIDForNemeForm = 0;
         IcontanctsRepository repository;
         public frmAddorEdite()
         {
@@ -25,7 +26,23 @@ namespace myContact
 
         private void frmAddorEdite_Load(object sender, EventArgs e)
         {
-
+            if(contactIDForNemeForm == 0)
+            {
+                this.Text = "افزودن شخص جدید";
+            }
+            else
+            {
+                this.Text = "ویرایش شخص مورد نظر";
+                DataTable dt = repository.SelectRow(contactIDForNemeForm);
+                txtName.Text = dt.Rows[0][1].ToString();
+                txtFamily.Text = dt.Rows[0][2].ToString();
+                txtMobil.Text = dt.Rows[0][3].ToString();
+                txtAge.Value = int.Parse( dt.Rows[0][4].ToString());
+                txtEmail.Text = dt.Rows[0][5].ToString();
+               txtAddress.Text = dt.Rows[0][6].ToString();
+                btnSubmit.Text = "ویرایش";
+            }
+            
         }
         bool validateInputs()
         {
@@ -61,10 +78,28 @@ namespace myContact
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            if(validateInputs())
+            if(validateInputs() )
             {
-                repository.Insert(txtName.Text, txtFamily.Text, txtMobil.Text, txtEmail.Text, (int)txtAge.Value, txtAddress.Text);
+                bool isSuccess;
+                if(contactIDForNemeForm== 0)
+                {
+                     isSuccess =  repository.Insert(txtName.Text, txtFamily.Text, txtMobil.Text, txtEmail.Text, int.Parse(txtAge.Value.ToString()), txtAddress.Text);
+                }
+                else
+                {
+                    isSuccess = repository.Update(contactIDForNemeForm, txtName.Text, txtFamily.Text, txtMobil.Text, txtEmail.Text, (int)(txtAge.Value), txtAddress.Text);
+                }
+                if(isSuccess == true)
+                {
+                    MessageBox.Show("عملیات موفق با موفقیت", "اطلاعات", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    MessageBox.Show("عملیات ناموفق", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
+            
         }
 
         private void txtMobil_KeyPress(object sender, KeyPressEventArgs e)
