@@ -63,6 +63,18 @@ namespace myContact.Services
             }
         }
 
+        public DataTable search(string parameter)
+        {
+            string query = "select * from mycontact2 where name like  @Name or family like @Name ; ";
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            SqlDataAdapter adaptor = new SqlDataAdapter(query, connection);
+            adaptor.SelectCommand.Parameters.AddWithValue("@Name", "%"+parameter+"%");
+            DataTable data = new DataTable();
+            adaptor.Fill(data);
+            return data;
+           
+        }
+
         public DataTable SelectAll()
         {
             string query = "Select * From mycontact2";

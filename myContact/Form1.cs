@@ -87,5 +87,10 @@ namespace myContact
                 MessageBox.Show(" شخصی انتخاب نشده!", " هشدار", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            dgContacts.DataSource = repository.search(txtSearch.Text);
+        }
     }
 }
